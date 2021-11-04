@@ -33,5 +33,5 @@
 - Economy system (Good to have)
 
 ## Timeline
-4-Nov to 8-Nov - Explore functionalities based on allocated task and identify any challenges/additional modules required
+4-Nov to 8-Nov - Explore functionalities based on allocated task and identify any challenges/additional modules required\n
 28-Nov - DEADLINE
