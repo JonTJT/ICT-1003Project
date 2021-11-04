@@ -1,5 +1,5 @@
 # INSERT NAME OF PROJ HERE
-This is not pokemon guys... I swear
+### IMPORTANT: PLS UPDATE PRODUCTION BRANCH WHEN WORKING ON THIS
 
 ## Features/functionalities
 - Menu (Hunt/Manage)
