@@ -12,6 +12,9 @@
 1. Before coding, ensure that the branch selected is the production branch:
 ![image](https://user-images.githubusercontent.com/23615745/140255287-00a96237-9f38-47df-96a9-9005674a5576.png)
 2. Ensure that you have pulled the latest version of the project before making any changes to ensure that you are coding on top of the latest code.
+![image](https://user-images.githubusercontent.com/23615745/140255918-4b603f2a-b032-47f0-9ea4-5f575051a291.png)
+3. Finally, after you have made the changes, ensure that you still have the latest version of the branch, if not pull and merge the production branch from the repository, resolve any conflicts then push.
+
 
 ## Features/functionalities
 - Menu (Hunt/Manage)
