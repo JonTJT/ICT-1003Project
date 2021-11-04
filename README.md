@@ -1,4 +1,4 @@
-# INSERT NAME HERE
+# INSERT NAME OF PROJ HERE
 This is not pokemon guys... I swear
 
 ## Features/functionalities
