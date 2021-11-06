@@ -1,5 +1,6 @@
 
 // Color definitions
+#define Purple          0x11
 #define	BLACK           0x00
 #define	BLUE            0xE0
 #define	RED             0x03
