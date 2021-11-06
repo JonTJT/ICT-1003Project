@@ -30,4 +30,5 @@
 
 ## Timeline
 4-Nov to 8-Nov - Explore functionalities based on allocated task and identify any challenges/additional modules required<br>
+8-Nov to 13-Nov - Start coding functionality (Meeting on 13 Nov to update progress)
 28-Nov - DEADLINE
