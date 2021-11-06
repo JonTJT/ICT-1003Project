@@ -1,4 +1,4 @@
-# INSERT NAME OF PROJ HERE
+# MAGIC CONSOLE
 ### IMPORTANT: PLS UPDATE PRODUCTION BRANCH WHEN WORKING ON THIS
 
 ## Setup Guide:
@@ -23,14 +23,12 @@
 6. Other contributors will now be able to view your commits and work on top of them. :)
 
 ## Features/functionalities
-- Menu (Hunt/Manage)
-- Daily Rewards
-- Explore (Shake to walk across the landscape, randomly encountering a monster or a get bait to catch monsters)
-- Monster catching
-- Monster merging (level up by feeding other monsters)
-- Battle system (Good to have)
-- Trading system (Good to have)
-- Economy system (Good to have)
+1. Magic 8 ball (Accelerometer to shake shake and then come out asnswer)
+2. Love calculator (Press the button on the left, and press button on the right, our advanced AI technology will analyse your vibrational frequency and calcyulate your compatibility)
+3. Tarot Card ( only need input when drawing card and choosing to display the card, the rest will just be hard coded)
+4. Horoscope of the day
+5. Fortune teller man
+6. Lucky Number
 
 ## Timeline
 4-Nov to 8-Nov - Explore functionalities based on allocated task and identify any challenges/additional modules required <br>
