@@ -8,7 +8,7 @@ TinyScreen display = TinyScreen(TinyScreenDefault);
 void setup() {
   Wire.begin();
   display.begin();
-  display.setBrightness(3);
+  display.setBrightness(2);
   display.clearScreen();
   display.setBitDepth(TSBitDepth16);
   display.setColorMode(TSColorModeRGB);  
@@ -18,6 +18,8 @@ void setup() {
 void loop() {
   display.clearScreen();
   drawMap(wizardBitmap,34,54,30,10);
+  delay(1000);
+  drawMap(wizardBitmap_flipped,34,54,30,10);
   delay(1000);
 }
 
