@@ -22,7 +22,7 @@ sprite crystal_ball = {20,20,crystalBallBitmap};
 void setup() {
   Wire.begin();
   display.begin();
-  display.setBrightness(10);
+  display.setBrightness(2);
   display.clearScreen();
   display.setBitDepth(TSBitDepth16);
   display.setColorMode(TSColorModeRGB);
@@ -32,22 +32,25 @@ void setup() {
 }
 
 void loop() {
-  drawBuffer(wizard,30,10);
-  delay(1000);
-  drawBuffer(crystal_ball, 30,30);
-  delay(1000);
   drawBuffer(wizard_flipped,30,10);
   delay(1000);
+  drawBuffer(wizard,30,10);
+  delay(1000);
+  
+  
+  drawBuffer(crystal_ball, 30,30);
+  delay(1000);
+  // drawMap(wiz
 }
 
 // Decommissioned, prints line by line, can be used for cool appearances
-void drawMap(unsigned int* bitmap,int x_len,int y_len,int start_x,int start_y) {
+void drawMap(sprite bitmap,int start_x,int start_y) {
   display.goTo(start_x, start_y);
-  for (int i=0; i<x_len*y_len; i++){
-    if (i%x_len == 0){
-      display.goTo(start_x,start_y+(i/y_len));
+  for (int i=0; i<bitmap.width*bitmap.height; i++){
+    if (i%bitmap.width == 0){
+      display.goTo(start_x,start_y+(i/bitmap.height));
     }
-    display.writePixel(bitmap[i]);
+    display.writePixel(bitmap.bitmap[i]);
   }
 }
 
