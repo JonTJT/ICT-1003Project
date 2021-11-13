@@ -1,47 +1,5 @@
-#include <TinyScreen.h>
-#include <SPI.h>
-#include <Wire.h>
-#include "Bitmaps.h"
-
-#define brightness 10
-
-TinyScreen display = TinyScreen(TinyScreenDefault);
-
-typedef struct {
-  int width;
-  int height;
-  const  unsigned int *bitmap;
-} sprite;
 
 int backgroundColor = TS_16b_Black;
-//Sprite initialisation
-sprite wizard = {34,54,wizardBitmap};
-sprite wizard_flipped = {34,54,wizardBitmap_flipped};
-sprite crystal_ball = {20,20,crystalBallBitmap};
-
-void setup() {
-  Wire.begin();
-  display.begin();
-  display.setBrightness(2);
-  display.clearScreen();
-  display.setBitDepth(TSBitDepth16);
-  display.setColorMode(TSColorModeRGB);
- 
-  
-  //drawMap(wizardBitmap,34,54,31,5);
-}
-
-void loop() {
-  drawBuffer(wizard_flipped,30,10);
-  delay(1000);
-  drawBuffer(wizard,30,10);
-  delay(1000);
-  
-  
-  drawBuffer(crystal_ball, 30,30);
-  delay(1000);
-  // drawMap(wiz
-}
 
 // Decommissioned, prints line by line, can be used for cool appearances
 void drawMap(sprite bitmap,int start_x,int start_y) {
