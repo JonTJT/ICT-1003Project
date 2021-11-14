@@ -14,7 +14,8 @@ void drawMap(sprite bitmap,int start_x,int start_y) {
 
 // drawBuffer function draws a bitmap at the start_x and the start_y provided.
 void drawBuffer(sprite bitmap, int start_x, int start_y) {
-  uint8_t lineBuffer[96 * 64 * 3];
+  uint8_t lineBuffer[96 * 64 * 1];
+  display.goTo(0,0);
   display.startData();
   for (int y = 0; y < 64; y++) {
     for (int b = 0; b < 96; b++) {
