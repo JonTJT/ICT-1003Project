@@ -13,6 +13,8 @@ TinyScreen display = TinyScreen(TinyScreenDefault); //Initialise the display
 
 //test - 10x10 filled yellow rectange
 //crystalBall - 20x20 crystal ball
+//eightBall - 20x20 eight ball
+//heart_full - 30x25 heart
 //wizard - 34x27 wizard/fortune teller man
 //wizard_flipped - 34x27 flipped version of the wizard/fortune teller man
 //bigWizard - 34x54 big wizard/fortune teller man
