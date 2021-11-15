@@ -6,7 +6,7 @@
 TinyScreen display = TinyScreen(TinyScreenDefault); //Initialise the display
 #include "drawSprites.h" //Put this include only after the display, will not work unless this is after
 
-#define brightness 10
+#define brightness 2
 
 //SpriteList for your convenience, will update whenever i add a new sprite:
 //format: spritename(use this in your drawBuffer function), dimensions(x,y), description(for you to identify the sprite)
@@ -14,7 +14,12 @@ TinyScreen display = TinyScreen(TinyScreenDefault); //Initialise the display
 //test - 10x10 filled yellow rectange
 //crystalBall - 20x20 crystal ball
 //eightBall - 20x20 eight ball
-//heart_full - 30x25 heart
+//heart_1 - 30x25 0% filled heart (empty)
+//heart_2 - 30x25 25% filled heart
+//heart_3 - 30x25 50% filled heart
+//heart_4 - 30x25 75% filled heart
+//heart_5 - 30x25 100% filled heart
+//heart_6 - 34x29 Glowing filled heart (Note that this is bigger for the "Glowing" effect)
 //wizard - 34x27 wizard/fortune teller man
 //wizard_flipped - 34x27 flipped version of the wizard/fortune teller man
 //bigWizard - 34x54 big wizard/fortune teller man
@@ -35,10 +40,16 @@ void loop() {
   // bitmap - The bitmap you wish to display on the screen
   // start_x - The x starting value at which the sprite should be displayed. x=0 is the leftmost side of the screen
   // start_y - The y starting value at which the sprite should be displayed. y=0 is the topmost side of the screen
-  drawBuffer(wizard_flipped,30,10);
+  drawBuffer(heart_1,33,20);
   delay(1000);
-  drawBuffer(wizard,30,10);
+  drawBuffer(heart_2,33,20);
   delay(1000);
-  drawBuffer(crystalBall, 30,30);
+  drawBuffer(heart_3, 33,20);
+  delay(1000);
+  drawBuffer(heart_4, 33,20);
+  delay(1000);
+  drawBuffer(heart_5, 33,20);
+  delay(1000);
+  drawBuffer(heart_6, 31,18); // -2 on x axis and -2 on y axis due to the sprite being two pixels bigger on the left and right and two pixels bigger on top and bottom
   delay(1000);
 }
