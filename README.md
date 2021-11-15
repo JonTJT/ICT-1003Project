@@ -29,6 +29,8 @@
 6. Lucky Number
 
 ## Timeline
-4-Nov to 8-Nov - Explore functionalities based on allocated task and identify any challenges/additional modules required<br>
+4-Nov to 8-Nov - Explore functionalities based on allocated task and identify any challenges/additional modules required <br>
 8-Nov to 13-Nov - Start coding functionality (Meeting on 13 Nov to update progress)<br>
+14-Nov to 21-Nov - Finish coding functionality & begin integration<br>
+21-Nov to 28-Nov - Finish integration & demonstration video<br>
 28-Nov - DEADLINE
