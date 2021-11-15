@@ -20,30 +20,22 @@ typedef enum {INITIAL, WAIT, RESPONSE} states;
 states nextState = INITIAL;
 
 TinyScreen display = TinyScreen(TinyScreenDefault);
+#include "drawSprites.h" //Put this include only after the display, will not work unless this is after
 
-void setup(void) {
+#define brightness 10
+
+void setup() {
   Wire.begin();
   display.begin();
-  display.setBrightness(3); //spirites module
+  display.setBrightness(brightness); //spirites module
   display.setBitDepth(TSBitDepth16); //spirites module
   display.setColorMode(TSColorModeRGB); //spirites module
   randomSeed(analogRead(1)); //To make our random numbers less predictable, we use randomSeed
                               //and read an unused pin for a starting value (seed)
   SerialMonitorInterface.begin(9600);
   accel.begin(BMA250_range_2g, BMA250_update_time_64ms); 
+  display.setFlip(1); //Flip display
 }
-
-//spirites module
-void drawMap(unsigned int* bitmap,int x_len,int y_len,int start_x,int start_y) {
-  display.goTo(start_x, start_y);
-  for (int i=0; i<x_len*y_len; i++){
-    if (i%x_len == 0){
-      display.goTo(start_x,start_y+(i/y_len));
-    }
-    display.writePixel(bitmap[i]);
-  }
-}
-
 
 void loop() {
   display.setFont(liberationSans_10ptFontInfo); //font size is 8
@@ -64,8 +56,8 @@ void loop() {
   case INITIAL:
     display.clearWindow(0,0,96,64);
     display.setCursor(3,5);
+    drawBuffer(eightBall,63,30);//sprite character
     display.print("Magic 8-Ball");
-    drawMap(wizardBitmap,34,54,63,30);//spirites character
     delay(2000);
     nextState = WAIT;
     break;
@@ -91,7 +83,6 @@ void loop() {
 void magic8ball() {
   // generate random number between 0 and 19 to select and print random response
   oneLineScroll(0,phrases[random(RESPONSES)]);
-  drawMap(wizardBitmap,34,54,63,30);//spirites character
   delay(2000);
   display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
   delay(2000);
@@ -110,6 +101,7 @@ Reuse for other projects!
 void oneLineScroll (int line, String text) {
   // set cursor on intended line and print first 16 chars
   display.clearWindow(0,0,96,64);
+  drawBuffer(wizard,63,30);//sprite character
   display.setCursor(0, 0);
   // print first 16 characters
   display.print(text.substring(0,15));
@@ -120,4 +112,5 @@ void oneLineScroll (int line, String text) {
       display.print(text.substring(i,i+16));
     }
   }
+   delay(1500);
 }
