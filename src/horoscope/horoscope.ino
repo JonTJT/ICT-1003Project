@@ -361,8 +361,6 @@ void getHoroscopeMessage(String horoscope) {
 }
 
 void printHoroscopeMsg(String msg1, String msg2, String msg3) {
-//  display.setFont(liberationSans_6ptFontInfo);
-//  display.setFont(thinPixel7_10ptFontInfo);
   display.setCursor(0, 32);
   display.print(msg1);
   display.setCursor(0, 42);
