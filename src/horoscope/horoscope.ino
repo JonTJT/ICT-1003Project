@@ -90,10 +90,8 @@ void loop() {
         display.print("Your Horoscope is: ");
         display.setCursor(30, 15);
         display.print(astro_sign);
-        display.setCursor( 48 - (display.getPrintWidth("Life is easy like")/2), 35);
-        display.print("Life is easy like");
-        display.setCursor( 48 - (display.getPrintWidth("smooth jazz today")/2), 45);
-        display.print("smooth jazz today");
+        // get horoscope message
+        getHoroscopeMessage(astro_sign);
         reset = true;
         delay(5000);
         dobPage();
@@ -332,4 +330,43 @@ void getDOB(int monthDOB, int dayDOB) {
     reset = true;
     dobPage();
   }
+}
+
+void getHoroscopeMessage(String horoscope) {
+  if (horoscope == "Aries") {
+      printHoroscopeMsg("Life is like smooth", "jazz today", "");
+  } else if (horoscope == "Taurus") {
+      printHoroscopeMsg("Learn to trust the", "process~", "");
+  } else if (horoscope == "Gemini") {
+      printHoroscopeMsg("The star has given", "you an extra boost", "");
+  } else if (horoscope == "Cancer") {
+      printHoroscopeMsg("Neptune has pave", "a way for meaning", "-ful connections");
+  } else if (horoscope == "Leo") {
+      printHoroscopeMsg("Deepen your", "connections with", "key people");
+  } else if (horoscope == "Virgo") {
+      printHoroscopeMsg("Communication is", "key to maintaining", "trust");
+  } else if (horoscope == "Libra") {
+      printHoroscopeMsg("Celebrate wins", "with some bonding", "sessions");
+  } else if (horoscope == "Scropio") {
+      printHoroscopeMsg("Your charisma level", "are off the charts!", "");
+  } else if (horoscope == "Sagittarius") {
+      printHoroscopeMsg("People will be", "genuinely impressed", "by your aura");
+  } else if (horoscope == "Capricorn") {
+      printHoroscopeMsg("Go ahead and treat", "yourself better", "");
+  }  else if (horoscope == "Aquarius") {
+      printHoroscopeMsg("You will attract", "the right people", "by being yourself");
+  }  else if (horoscope == "Pisces") {
+      printHoroscopeMsg("Be more tender and", "loving towards your", "love interest");
+  } 
+}
+
+void printHoroscopeMsg(String msg1, String msg2, String msg3) {
+//  display.setFont(liberationSans_6ptFontInfo);
+//  display.setFont(thinPixel7_10ptFontInfo);
+  display.setCursor(0, 32);
+  display.print(msg1);
+  display.setCursor(0, 42);
+  display.print(msg2);
+  display.setCursor(0, 52);
+  display.print(msg3);
 }
