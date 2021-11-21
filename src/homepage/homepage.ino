@@ -8,9 +8,11 @@ TinyScreen display = TinyScreen(TinyScreenDefault);
 #include "drawSprites.h"
 
 BMA250 accel_sensor;
-int wizard_x = 45; //Temporary wizard location, later to use global x coordinate var
+int wizard_x = 45; //Global x coordinate for wizard
+int wizard_y = 38; //Global y coordinate for wizard
 int gravity = 1; // Determines if screen if flipped or not, 1 is flipped 0 is not flipped
 int x_accel = 0; //Accelerometer value for x axis
+int walking_delay = 150; //Delay between walking frames. Lesser is smoother animation, but he moves very fast
 
 
 void setup() {
@@ -30,7 +32,7 @@ void setup() {
 
 void loop() {
   display.clearScreen();
-  drawBuffer(wizard,wizard_x,30);
+  drawBuffer(wizard,wizard_x,wizard_y);
   display.setFont(thinPixel7_10ptFontInfo);
   display.fontColor(TS_8b_Green,TS_8b_Black);
   display.setCursor(0,10);
@@ -55,10 +57,11 @@ void idle(){
   //Get wizards coordinates, decide how far can he walk in either direction
   int walk_direction = random(2); //0 = left, 1 = right
   if (walk_direction == 0){                                    //Walk left
-    max_walk = wizard_x / 5;
+    max_walk = (wizard_x - 5) / 5;
     rand_walk = random(max_walk);
     bound = wizard_x - (rand_walk * 5);
     if (bound >= wizard_x) {
+      delay(1000);
       display.setCursor(20,10);
       display.print("*zzzzzzzz*");
       delay(2000);
@@ -66,26 +69,27 @@ void idle(){
       return;
     }
  
-    for (wizard_x; wizard_x > bound; wizard_x -= 5) {
-      drawBuffer(wizard, wizard_x, 30);
+    for (wizard_x; wizard_x > bound; wizard_x -= 1) {
+      drawBuffer(wizard, wizard_x, wizard_y);
       gravity_check();
-      delay(1000);
+      delay(walking_delay);
     }
   } else {                                                     //Walk Right
-    max_walk = (80 - wizard_x) / 5;
+    max_walk = (75 - wizard_x) / 5;
     rand_walk = random(max_walk);
     bound = wizard_x + rand_walk * 5;
     if (bound <= wizard_x) {
+      delay(1000);
       display.setCursor(15,10);
       display.print("*lalalalala*");
       delay(2000);
       display.clearWindow(0,0,96,30);
       return;
     }
-    for (wizard_x; wizard_x < bound; wizard_x += 5) {
-      drawBuffer(wizard_flipped, wizard_x, 30);
+    for (wizard_x; wizard_x < bound; wizard_x += 1) {
+      drawBuffer(wizard_flipped, wizard_x, wizard_y);
       gravity_check();
-      delay(1000);
+      delay(walking_delay);
     }
   }
   //Make him talk
@@ -94,7 +98,8 @@ void idle(){
 
 // Fn to make him say random things
 void talk() {
-  int rand_word = random(5);
+  int rand_word = random(7+2); //The +2 is to add chance that he won't say anything
+  // To test specific cases if need be -> rand_word = 6;
   switch(rand_word) {
     case 0:
       display.setCursor(0,10);
@@ -105,7 +110,7 @@ void talk() {
       delay(3000);
       display.clearWindow(0,0,96,30);
       break;
-   case 1:
+    case 1:
       display.setCursor(0,10);
       display.print("I'm not happy...");
       delay(1000);
@@ -119,11 +124,11 @@ void talk() {
       display.print("The stars tell me...");
       delay(1000);
       display.setCursor(0,20);
-      display.print("u gey hahahahha");
+      display.print("its a good day");
       delay(3000);
       display.clearWindow(0,0,96,30);
       break;
-  case 3:
+    case 3:
       display.setCursor(0,10);
       display.print("My magic ball says..");
       delay(1000);
@@ -132,7 +137,7 @@ void talk() {
       delay(3000);
       display.clearWindow(0,0,96,30);
       break;
-  case 4:
+    case 4:
       display.setCursor(0,10);
       display.print("Your ICT1003...");
       delay(1000);
@@ -140,6 +145,31 @@ void talk() {
       display.print("GETS A+ BABY!!!");
       delay(3000);
       display.clearWindow(0,0,96,30);
+      break;
+    case 5:
+      display.setCursor(0,10);
+      display.print("Have a 'STUN SEED'");
+      delay(1000);
+      display.setCursor(0,20);
+      display.print("backwards");
+      display.setCursor(0,30);
+      delay(3000);
+      display.print("gottem");
+      delay(2000);
+      display.clearWindow(0,0,96,40);
+      break;
+    case 6:
+      display.setCursor(0,10);
+      display.print("U from tennessee?");
+      delay(1000);
+      display.setCursor(0,20);
+      display.print("Cos u the only 10");
+      display.setCursor(0,30);
+      display.print("i see");
+      delay(5000);
+      display.clearWindow(0,0,96,40);
+      break;
+    default:
       break;
   }
 }
@@ -172,7 +202,7 @@ void gravity_check() {
     //dist_from_centre_xaxis = 48 - wizard_x;
     //wizard_x = wizard_x - (2 * dist_from_centre_xaxis);
     
-    drawBuffer(wizard, wizard_x, 30);
+    drawBuffer(wizard, wizard_x, wizard_y);
     delay(1000);
     display.setCursor(0,10);
     display.print("Uh...RUDE!?");
