@@ -11,7 +11,6 @@ TinyScreen display = TinyScreen(TinyScreenDefault); //Initialise the display
 //SpriteList for your convenience, will update whenever i add a new sprite:
 //format: spritename(use this in your drawBuffer function), dimensions(x,y), description(for you to identify the sprite)
 
-//test - 10x10 filled yellow rectange
 //crystalBall - 20x20 crystal ball
 //eightBall - 20x20 eight ball
 //heart_1 - 30x25 0% filled heart (empty)
@@ -24,7 +23,19 @@ TinyScreen display = TinyScreen(TinyScreenDefault); //Initialise the display
 //wizard_flipped - 34x27 flipped version of the wizard/fortune teller man
 //bigWizard - 34x54 big wizard/fortune teller man
 //bigWizard_flipped - 34x54 flipped version of the big wizard/fortune teller man
-
+//aries - 42x40 aries horoscope
+//taurus - 42x40 taurus horoscope
+//gemini - 42x40 gemini horoscope
+//cancer - 42x40 cancer horoscope
+//leo - 42x40 leo horoscope
+//virgo - 42x40 virgo horoscope
+//libra - 42x40 libra horoscope
+//scorpio - 42x40 scorpio horoscope
+//sagittarius - 42x40 sagittarius horoscope
+//capricorn - 42x40 capricorn horoscope
+//aquarius - 42x40 aquarius horoscope
+//pisces - 42x40 pisces horoscope
+int no = 0 ;
 void setup() {
   Wire.begin();
   display.begin(); //Start the display
@@ -32,24 +43,39 @@ void setup() {
   display.setBitDepth(TSBitDepth16); //Set color bit depth to 16-bit color scheme. Bitmap colors will not display correctly unless this is set.
   display.setColorMode(TSColorModeRGB); //Set color mode to RGB. Bitmap colors will not display correctly unless this is set.
   display.setFlip(1); //Flip display
+
 }
 
 void loop() {
-  //Use the drawBuffer function to display sprites. 
+  //Use the drawBuffer function to display sprites.
   //Parameters ==> sprite bitmap, start_x, start_y
   // bitmap - The bitmap you wish to display on the screen
   // start_x - The x starting value at which the sprite should be displayed. x=0 is the leftmost side of the screen
   // start_y - The y starting value at which the sprite should be displayed. y=0 is the topmost side of the screen
-  drawBuffer(heart_1,33,20);
+  int x = findMiddleX(aries);
+  int y = findMiddleY(aries);
+  drawAries(x, y);
   delay(1000);
-  drawBuffer(heart_2,33,20);
+  drawBuffer(taurus, x, y);
   delay(1000);
-  drawBuffer(heart_3, 33,20);
+  drawBuffer(gemini, x, y);
   delay(1000);
-  drawBuffer(heart_4, 33,20);
+  drawBuffer(cancer, x, y);
   delay(1000);
-  drawBuffer(heart_5, 33,20);
+  drawBuffer(leo, x, y);
   delay(1000);
-  drawBuffer(heart_6, 31,18); // -2 on x axis and -2 on y axis due to the sprite being two pixels bigger on the left and right and two pixels bigger on top and bottom
+  drawBuffer(virgo, x, y);
+  delay(1000);
+  drawBuffer(libra, x, y);
+  delay(1000);
+  drawBuffer(scorpio, x, y);
+  delay(1000);
+  drawBuffer(sagittarius, x, y);
+  delay(1000);
+  drawBuffer(capricorn, x, y);
+  delay(1000);
+  drawBuffer(aquarius, x, y);
+  delay(1000);
+  drawBuffer(pisces, x, y);
   delay(1000);
 }

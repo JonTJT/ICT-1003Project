@@ -13,8 +13,8 @@ int x_accel = 0; //Accelerometer value for x axis
 int walking_delay = 150; //Delay between walking frames. Lesser is smoother animation, but he moves very fast
 
 // MENG RONG PART --------------------------------------------------------------------------------------------------
-#include <GraphicsBuffer.h>
-GraphicsBuffer displayBuffer = GraphicsBuffer(96, 64, colorDepth8BPP);
+//#include <GraphicsBuffer.h>
+//GraphicsBuffer displayBuffer = GraphicsBuffer(96, 64, colorDepth8BPP);
 
 TinyScreen display = TinyScreen(TinyScreenDefault);
 #include "drawSprites.h"
@@ -448,9 +448,8 @@ void loop() {
 void drawMenu() {
   //for (int yChange = changeStart; yChange != changeEnd; yChange += changeDir) {
   if (needMenuDraw) {
-    display.goTo(0,0);
     needMenuDraw = false;
-//    display.clearScreen();
+    display.clearScreen();
 //    displayBuffer.clear();
     
 
@@ -479,7 +478,6 @@ void drawMenu() {
       int width = display.getPrintWidth(buffer);
       
       if (menu_debug_print)SerialMonitorInterface.println(width);
-      
 //      displayBuffer.setCursor(96 / 2 - width / 2, menuTextY[i] + 5 + yChange - (currentSelectionLine * 8) + 16);
 //      display.setCursor(96 / 2 - width / 2, menuTextY[i] + 5 + yChange - (currentSelectionLine * 8) + 16);
       display.setCursor(96 / 2 - width / 2, menuTextY[i] + 5 + yChange - (currentSelectionLine * 8) + 16);
