@@ -14,7 +14,7 @@ int walking_delay = 150; //Delay between walking frames. Lesser is smoother anim
 
 // MENG RONG PART --------------------------------------------------------------------------------------------------
 #include <GraphicsBuffer.h>
-GraphicsBuffer displayBuffer = GraphicsBuffer(96, 64, colorDepth8BPP);
+GraphicsBuffer displayBuffer = GraphicsBuffer(96, 64, colorDepth16BPP);
 
 TinyScreen display = TinyScreen(TinyScreenDefault);
 #include "drawSprites.h"
@@ -114,6 +114,8 @@ uint8_t currentDisplayState = displayStateHome;
   // menu_info Obj Array ------------------------------------------------------
   const menu_info menuList[] = {MenuInfo};
   #define MainMenuIndex 0
+
+
 
 // KEEFE FUNCTIONS ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void gravity_check() {
@@ -392,15 +394,6 @@ void setup() {
   accel_sensor.begin(BMA250_range_2g, BMA250_update_time_32ms); 
 
 
-//  if (displayBuffer.begin()) {
-//    //memory allocation error- buffer too big
-//    while (1) {
-//      SerialMonitorInterface.println("Display buffer memory allocation error!");
-//      delay(1000);
-//    }
-//  }
-//  displayBuffer.setFont(thinPixel7_10ptFontInfo);
-//  displayBuffer.clear();
 }
 
 void loop() {
@@ -414,7 +407,7 @@ void loop() {
   display.print("Why hello there...");
   display.setCursor(0,20);
   display.print("I'm Saicik!");
-  delay(3000);
+  delay(5000);
   
   // Here is the infinite loop for idle, change to for loop if want limit loops.
   while (1){
@@ -450,7 +443,7 @@ void drawMenu() {
   if (needMenuDraw) {
     display.goTo(0,0);
     needMenuDraw = false;
-//    display.clearScreen();
+    display.clearScreen();
 //    displayBuffer.clear();
     
 
@@ -461,7 +454,6 @@ void drawMenu() {
 //        display.fontColor(TS_8b_Green,TS_8b_Black);
       } else {
 //        displayBuffer.fontColor(inactiveFontColor, ALPHA_COLOR);
-//        display.fontColor(inactiveFontColor, ALPHA_COLOR);
       }
       
       //write the selection string to display
@@ -477,14 +469,17 @@ void drawMenu() {
       
 //      int width = displayBuffer.getPrintWidth(buffer);      //WORKS
       int width = display.getPrintWidth(buffer);
+
       
-      if (menu_debug_print)SerialMonitorInterface.println(width);
+      if (menu_debug_print)SerialMonitorInterface.println("ychange = ");
+      if (menu_debug_print)SerialMonitorInterface.println(yChange);
       
 //      displayBuffer.setCursor(96 / 2 - width / 2, menuTextY[i] + 5 + yChange - (currentSelectionLine * 8) + 16);
 //      display.setCursor(96 / 2 - width / 2, menuTextY[i] + 5 + yChange - (currentSelectionLine * 8) + 16);
       display.setCursor(96 / 2 - width / 2, menuTextY[i] + 5 + yChange - (currentSelectionLine * 8) + 16);
 //      displayBuffer.print(buffer);
       display.print(buffer);
+      delay(10);
     }
 
     writeArrows();
@@ -526,6 +521,7 @@ void viewMenu(uint8_t button) {           //View the menu
       if (menu_debug_print)SerialMonitorInterface.print("select ");
       if (menu_debug_print)SerialMonitorInterface.println(currentMenuLine + currentSelectionLine);
       menuList[currentMenu].selectionHandler(currentMenuLine + currentSelectionLine);
+      
     } else if (button == backButton) {
       newMenu(-1);
       if (!menuHistoryIndex)
@@ -557,18 +553,17 @@ void viewMenu(uint8_t button) {           //View the menu
   lastSelectionLine = currentSelectionLine;
   menuSelectionLineHistory[menuHistoryIndex] = currentSelectionLine;
 
-//  displayBuffer.fontColor(0xFFFF, ALPHA_COLOR);
 }
 
-// Function to create menu and store into variables if (-1) index means move back 1 page
+
 void newMenu(int8_t newIndex) {
   currentMenuLine = 0;
   lastMenuLine = -1;
   currentSelectionLine = 0;
   lastSelectionLine = -1;
-  if (newIndex >= 0) {          //Depending on either in homepage / menu state
-    menuHistory[menuHistoryIndex++] = currentMenu;            //menuHistory = 5 entries - menuHistoryIndex default  = 0
-    currentMenu = newIndex;                                   //update the currentMenuNode with mainmenuIndex if first pressed
+  if (newIndex >= 0) {                                        
+    menuHistory[menuHistoryIndex++] = currentMenu;            
+    currentMenu = newIndex;                                   
   } else {
     if (currentDisplayState == displayStateMenu) { 
       menuHistoryIndex--;
@@ -587,7 +582,7 @@ void newMenu(int8_t newIndex) {
   } else {
     if (menu_debug_print)SerialMonitorInterface.print("New menu index ");
     if (menu_debug_print)SerialMonitorInterface.println("home");              //debug
-    menuSelectionLineHistory[menuHistoryIndex + 1] = 0;       //Erase the previous history index away
+    menuSelectionLineHistory[menuHistoryIndex + 1] = 0;       
     currentDisplayState = displayStateHome;
     initHomeScreen();
   }
@@ -604,24 +599,12 @@ void buttonPress(uint8_t buttons) {
       menuHandler = viewMenu;           //Set menuHandler to reference viewMenu Function
       newMenu(MainMenuIndex);      
       menuHandler(0);                   //Call referenced function through menuHandler with argument
-      if (menu_debug_print)SerialMonitorInterface.println("Buttons Pressed1");
     }
   }
   //Else if current display = in a Menu page (selecting features)
   else if (currentDisplayState == displayStateMenu) {
     if (menuHandler) {                  
       menuHandler(buttons);
-      if (menu_debug_print)SerialMonitorInterface.println("Buttons Pressed2");
     }
   }
 }
-
-
-//--------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-//KEEFE FUNCTIONS -------------------------------------------------------------------------------------------
