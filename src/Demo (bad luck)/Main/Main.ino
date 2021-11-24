@@ -157,7 +157,7 @@ void talk_bad() {
       display.print("Your palm says...");
       delay(1000);
       display.setCursor(0,20);
-      display.print("you gained weight");
+      display.print("3 weeks bad luck!");
       delay(3000);
       display.clearWindow(0,0,96,30);
       break;
@@ -196,13 +196,13 @@ void talk() {
   switch(rand_word) {
     case 0:
       display.setCursor(0,10);
-      display.print("I predict that...");
+      display.print("Your palm says...");
 //      delay(1000);
       for (int i = 0; i < 100; i++){
         checkButtons();
       }
       display.setCursor(0,20);
-      display.print("you gained weight");
+      display.print("3 weeks of bad luck!");
 //      delay(3000);
       for (int i = 0; i < 300; i++){
         checkButtons();
@@ -507,7 +507,7 @@ void setup() {
   display.setCursor(0,10);
   display.print("Why hello there...");
   display.setCursor(0,20);
-  display.print("I'm Saicik!");
+  display.print("I'm Ah Huat!");
   delay(5000);
   
 //  attachInterrupt(TSP_PIN_BT1, drawMenu, FALLING);
