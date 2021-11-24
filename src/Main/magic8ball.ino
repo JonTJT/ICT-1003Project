@@ -39,9 +39,10 @@ states nextState = INITIAL;
 
 void Ask8Ball() {
   display.clearScreen();
+  nextState = INITIAL;
+  accel.begin(BMA250_range_2g, BMA250_update_time_64ms); 
   while(1) {
      if (display.getButtons() != TSButtonLowerRight) {
-        accel.begin(BMA250_range_2g, BMA250_update_time_64ms); 
         mainLoop();
      } else {
         display.clearScreen();
