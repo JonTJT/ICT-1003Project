@@ -501,14 +501,6 @@ void setup() {
   accel_sensor.begin(BMA250_range_2g, BMA250_update_time_64ms); 
 
   display.clearScreen();
-  drawBuffer(wizard,wizard_x,wizard_y);
-  display.setFont(thinPixel7_10ptFontInfo);
-  display.fontColor(TS_16b_Green,TS_16b_Black);
-  display.setCursor(0,10);
-  display.print("Why hello there...");
-  display.setCursor(0,20);
-  display.print("I'm Ah Huat!");
-  delay(5000);
   
 //  attachInterrupt(TSP_PIN_BT1, drawMenu, FALLING);
 //  attachInterrupt(TSP_PIN_BT2, drawMenu, FALLING);
@@ -517,19 +509,33 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  checkButtons();
-  gravity_check();
-  idle();   //INPUT MY MENU CODE IN THE MIDDLE OF IDLE USING MENU CHECKER FUNCTION
-  if (good_check == 1 && punish_check == 1) {
-    good_check = 0;
-    talk_good();
-  }
-  if (bad_check == 1) {
-    bad_check = 0;
-    good_check = 1;
-    talk_bad();
-  }
   
-  checkButtons();
+  if (display.getButtons() == TSButtonLowerRight) {
+    drawBuffer(wizard,wizard_x,wizard_y);
+    display.setFont(thinPixel7_10ptFontInfo);
+    display.fontColor(TS_16b_Green,TS_16b_Black);
+    display.setCursor(0,10);
+    display.print("Why hello there...");
+    display.setCursor(0,20);
+    display.print("I'm Ah Huat!");
+    delay(5000);
+    
+    while(1) {
+      // put your main code here, to run repeatedly:
+      checkButtons();
+      gravity_check();
+      idle();   //INPUT MY MENU CODE IN THE MIDDLE OF IDLE USING MENU CHECKER FUNCTION
+      if (good_check == 1 && punish_check == 1) {
+        good_check = 0;
+        talk_good();
+      }
+      if (bad_check == 1) {
+        bad_check = 0;
+        good_check = 1;
+        talk_bad();
+      }
+      
+      checkButtons();
+    }
+  }
 }
