@@ -41,19 +41,20 @@ void Ask8Ball() {
   display.clearScreen();
   while(1) {
      if (display.getButtons() != TSButtonLowerRight) {
+        accel.begin(BMA250_range_2g, BMA250_update_time_64ms); 
         mainLoop();
      } else {
         display.clearScreen();
         //Set back the fonts
-        display.setFont(thinPixel7_10ptFontInfo);
-        display.fontColor(TS_16b_Green,TS_16b_Black);
+//        display.setFont(thinPixel7_10ptFontInfo);
+//        display.fontColor(TS_16b_Green,TS_16b_Black);
         break;
      }
    }
 }
 
 void mainLoop() {
-  display.setFont(liberationSans_10ptFontInfo); //font size is 8
+//  display.setFont(liberationSans_10ptFontInfo); //font size is 8
   //display.fontColor(WHITE,BLACK);
 
     accel.read(); //Read and manipulate accelerometer data
