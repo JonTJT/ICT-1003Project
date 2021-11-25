@@ -419,7 +419,7 @@ void getHoroscopeMessage(String horoscope) {
       printHoroscopeMsg("Communication is", "key to maintaining", "trust");
   } else if (horoscope == "Libra") {
       printHoroscopeMsg("Celebrate wins", "with some bonding", "sessions");
-  } else if (horoscope == "Scropio") {
+  } else if (horoscope == "Scorpio") {
       printHoroscopeMsg("Your charisma level", "are off the charts!", "");
   } else if (horoscope == "Sagittarius") {
       printHoroscopeMsg("People will be", "genuinely impressed", "by your aura");
