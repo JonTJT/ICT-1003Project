@@ -34,6 +34,7 @@ int positionOfDOB = 0;
 String astro_sign = " ";
 sprite horoscope_sprite;
 bool reset = false;
+bool validDate = false;
 const int day1Array[4] = { 0, 1, 2, 3 };
 const int day2month2Array[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 const int month1Array[2] = { 0, 1 };
@@ -265,10 +266,12 @@ void getDOB(int monthDOB, int dayDOB) {
   // December
   if (monthDOB == 12){
     if (dayDOB < 22) {
+      validDate = true;
       astro_sign = "Sagittarius";
       horoscope_sprite = sagittarius;
     }
     else if (dayDOB >= 22 && dayDOB <= 31) {
+      validDate = true;
       astro_sign ="Capricorn";
       horoscope_sprite = capricorn;
     }
@@ -276,10 +279,12 @@ void getDOB(int monthDOB, int dayDOB) {
   // January
   else if (monthDOB == 1){
     if (dayDOB < 20) {
+      validDate = true;
       astro_sign = "Capricorn";
       horoscope_sprite = capricorn;
     }
     else if (dayDOB >= 20 && dayDOB <= 31){
+      validDate = true;
       astro_sign = "Aquarius";
       horoscope_sprite = aquarius;
     }
@@ -287,10 +292,12 @@ void getDOB(int monthDOB, int dayDOB) {
   // February 
   else if (monthDOB == 2){
     if (dayDOB < 19) {
+      validDate = true;
       astro_sign = "Aquarius";
       horoscope_sprite = aquarius;
     }
     else if (dayDOB >= 19 && dayDOB <= 29){
+      validDate = true;
       astro_sign = "Pisces";
       horoscope_sprite = pisces;
     }
@@ -298,10 +305,12 @@ void getDOB(int monthDOB, int dayDOB) {
   // March    
   else if(monthDOB == 3){
     if (dayDOB < 21){
+      validDate = true;
       astro_sign = "Pisces";
       horoscope_sprite = pisces;
     }
     else if (dayDOB >= 21 && dayDOB <= 31){
+      validDate = true;
       astro_sign = "Aries";
       horoscope_sprite = aries;
     }
@@ -309,10 +318,12 @@ void getDOB(int monthDOB, int dayDOB) {
   // April
   else if (monthDOB == 4){
     if (dayDOB < 20){
+      validDate = true;
       astro_sign = "Aries";
       horoscope_sprite = aries;
     }
     else if (dayDOB >= 20 && dayDOB <= 30) {
+      validDate = true;
       astro_sign = "Taurus";
       horoscope_sprite = taurus;
     }
@@ -320,10 +331,12 @@ void getDOB(int monthDOB, int dayDOB) {
   // May     
   else if (monthDOB == 5){
     if (dayDOB < 21) {
+      validDate = true;
       astro_sign = "Taurus";
       horoscope_sprite = taurus;
     }
     else if (dayDOB >= 21 && dayDOB <= 31) {
+      validDate = true;
       astro_sign = "Gemini";
       horoscope_sprite = gemini;
     }
@@ -331,10 +344,12 @@ void getDOB(int monthDOB, int dayDOB) {
   // June    
   else if(monthDOB == 6){
     if (dayDOB < 21) {
+      validDate = true;
       astro_sign = "Gemini";
       horoscope_sprite = gemini;
     }
     else if (dayDOB >= 21 && dayDOB <= 30) {
+      validDate = true;
       astro_sign = "Cancer";
       horoscope_sprite = cancer;
     }
@@ -342,10 +357,12 @@ void getDOB(int monthDOB, int dayDOB) {
   // July     
   else if (monthDOB == 7){
     if (dayDOB < 23){
+      validDate = true;
       astro_sign = "Cancer";
       horoscope_sprite = cancer;
     }
     else if (dayDOB >= 23 && dayDOB <= 31){
+      validDate = true;
       astro_sign = "Leo";
       horoscope_sprite = leo;
     }
@@ -353,10 +370,12 @@ void getDOB(int monthDOB, int dayDOB) {
   // August     
   else if(monthDOB == 8){
     if (dayDOB < 23) {
+      validDate = true;
       astro_sign = "Leo";
       horoscope_sprite = leo;
     }
     else if (dayDOB >= 23 && dayDOB <= 31) {
+      validDate = true;
       astro_sign = "Virgo";
       horoscope_sprite = virgo;
     }
@@ -364,10 +383,12 @@ void getDOB(int monthDOB, int dayDOB) {
   // September     
   else if (monthDOB == 9){
     if (dayDOB < 23) {
+      validDate = true;
       astro_sign = "Virgo";
       horoscope_sprite = virgo;
     }
     else if (dayDOB >= 23 && dayDOB <= 30) {
+      validDate = true;
       astro_sign = "Libra";
       horoscope_sprite = libra;
     }
@@ -375,10 +396,12 @@ void getDOB(int monthDOB, int dayDOB) {
   // October  
   else if (monthDOB == 10){
     if (dayDOB < 23) {
+      validDate = true;
       astro_sign = "Libra";
       horoscope_sprite = libra;
     }
     else if (dayDOB >= 23 && dayDOB <= 31) {
+      validDate = true;
       astro_sign = "Scorpio";
       horoscope_sprite = scorpio;
     }
@@ -386,14 +409,17 @@ void getDOB(int monthDOB, int dayDOB) {
   // November     
   else if (monthDOB == 11){
     if (dayDOB < 22) {
+      validDate = true;
       astro_sign = "Scorpio";
       horoscope_sprite = scorpio;
     }
     else if (dayDOB >= 22 && dayDOB <= 30) {
+      validDate = true;
       astro_sign = "Sagittarius";
       horoscope_sprite = sagittarius;
     }
-  } else {
+  }
+  if (validDate == false) {
     display.clearScreen();
     display.fontColor(TS_16b_White,TS_16b_Black);
     display.setCursor( 48 - (display.getPrintWidth("Invalid DOB")/2), 5);
