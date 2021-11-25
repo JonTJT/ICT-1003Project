@@ -36,6 +36,16 @@ void mainLoop() {
       display.clearWindow(0,0,96,64); 
       delay(1000);
     }
+    if (x < 220) {
+      drawBuffer(eightBall,63,30);//sprite character 
+      display.setCursor(3,5);
+      display.print("Shake");
+      display.setCursor(3,15);
+      display.print("Shake");
+      display.setCursor(3,25);
+      display.print("Shake");
+      delay(1000);
+      display.clearWindow(0,0,96,64); 
     if (z > 220) {
       switch(rando) { //A switch case for each statement
         case 1: 
