@@ -32,6 +32,7 @@ int day1 = 0;
 int day2 = 0;
 int positionOfDOB = 0;
 String astro_sign = " ";
+sprite horoscope_sprite;
 bool reset = false;
 const int day1Array[4] = { 0, 1, 2, 3 };
 const int day2month2Array[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -68,7 +69,7 @@ void horoscopeLoop() {
   if (display.getButtons(TSButtonLowerLeft)) {
     if (positionOfDOB == 0) {
       positionOfDOB +=1;
-      display.fontColor(TS_8b_Red,TS_8b_Black);
+      display.fontColor(TS_16b_Red,TS_16b_Black);
       display.setCursor(30, 30);
       display.print(month1);
       delay(500);
@@ -76,21 +77,21 @@ void horoscopeLoop() {
       delay(500);
       positionOfDOB +=1;
       dobPage();
-      display.fontColor(TS_8b_Red,TS_8b_Black);
+      display.fontColor(TS_16b_Red,TS_16b_Black);
       display.setCursor(40, 30);
       display.print(month2);
     } else if (positionOfDOB == 2) {
       delay(500);
       positionOfDOB +=1;
       dobPage();
-      display.fontColor(TS_8b_Red,TS_8b_Black);
+      display.fontColor(TS_16b_Red,TS_16b_Black);
       display.setCursor(50, 30);
       display.print(day1);
     } else if (positionOfDOB == 3) {
       delay(500);
       positionOfDOB +=1;
       dobPage();
-      display.fontColor(TS_8b_Red,TS_8b_Black);
+      display.fontColor(TS_16b_Red,TS_16b_Black);
       display.setCursor(60, 30);
       display.print(day2);
     } else if (positionOfDOB == 4) {
@@ -103,7 +104,12 @@ void horoscopeLoop() {
         // go to next page to print astro sign and message
         display.clearScreen();
         delay(500);
-        display.fontColor(TS_8b_White,TS_8b_Black);
+        int x_start = findMiddleX(horoscope_sprite);
+        int y_start = findMiddleY(horoscope_sprite);
+        drawBuffer(horoscope_sprite,x_start,y_start);
+        delay(2000);
+        display.clearScreen();
+        display.fontColor(TS_16b_White,TS_16b_Black);
         display.setCursor( 48 - (display.getPrintWidth("Your Horoscope is: ")/2), 5);
         display.print("Your Horoscope is: ");
         display.setCursor(30, 15);
@@ -213,7 +219,7 @@ void dobPage() {
   }
   currentDisplayState = displayStateHoroscope;
   display.clearScreen();
-  display.fontColor(TS_8b_White,TS_8b_Black);
+  display.fontColor(TS_16b_White,TS_16b_Black);
   display.setCursor( 48 - (display.getPrintWidth("Enter DOB:")/2), 5);
   display.print("Enter DOB:");
   display.setCursor( 48 - (display.getPrintWidth("(MM/DD)")/2), 15);
@@ -238,7 +244,7 @@ void dobPage() {
   display.print("+");
   display.setCursor(88, 55);
   display.print("-");
-  display.fontColor(TS_8b_Red,TS_8b_Black);  
+  display.fontColor(TS_16b_Red,TS_16b_Black);  
   if (positionOfDOB == 1) {
     display.setCursor(30, 30);
     display.print(month1Array[month1]);
@@ -258,90 +264,138 @@ void dobPage() {
 void getDOB(int monthDOB, int dayDOB) {
   // December
   if (monthDOB == 12){
-    if (dayDOB < 22)
+    if (dayDOB < 22) {
       astro_sign = "Sagittarius";
-    else if (dayDOB >= 22 && dayDOB <= 31)
+      horoscope_sprite = sagittarius;
+    }
+    else if (dayDOB >= 22 && dayDOB <= 31) {
       astro_sign ="Capricorn";
+      horoscope_sprite = capricorn;
+    }
   }
   // January
   else if (monthDOB == 1){
-    if (dayDOB < 20)
+    if (dayDOB < 20) {
       astro_sign = "Capricorn";
-    else if (dayDOB >= 20 && dayDOB <= 31)
+      horoscope_sprite = capricorn;
+    }
+    else if (dayDOB >= 20 && dayDOB <= 31){
       astro_sign = "Aquarius";
+      horoscope_sprite = aquarius;
+    }
   }
   // February 
   else if (monthDOB == 2){
-    if (dayDOB < 19)
+    if (dayDOB < 19) {
       astro_sign = "Aquarius";
-    else if (dayDOB >= 19 && dayDOB <= 29)
+      horoscope_sprite = aquarius;
+    }
+    else if (dayDOB >= 19 && dayDOB <= 29){
       astro_sign = "Pisces";
+      horoscope_sprite = pisces;
+    }
   }
   // March    
   else if(monthDOB == 3){
-    if (dayDOB < 21)
+    if (dayDOB < 21){
       astro_sign = "Pisces";
-    else if (dayDOB >= 21 && dayDOB <= 31)
+      horoscope_sprite = pisces;
+    }
+    else if (dayDOB >= 21 && dayDOB <= 31){
       astro_sign = "Aries";
+      horoscope_sprite = aries;
+    }
   }
   // April
   else if (monthDOB == 4){
-    if (dayDOB < 20)
+    if (dayDOB < 20){
       astro_sign = "Aries";
-    else if (dayDOB >= 20 && dayDOB <= 30)
+      horoscope_sprite = aries;
+    }
+    else if (dayDOB >= 20 && dayDOB <= 30) {
       astro_sign = "Taurus";
+      horoscope_sprite = taurus;
+    }
   }
   // May     
   else if (monthDOB == 5){
-    if (dayDOB < 21)
+    if (dayDOB < 21) {
       astro_sign = "Taurus";
-    else if (dayDOB >= 21 && dayDOB <= 31)
+      horoscope_sprite = taurus;
+    }
+    else if (dayDOB >= 21 && dayDOB <= 31) {
       astro_sign = "Gemini";
+      horoscope_sprite = gemini;
+    }
   }
   // June    
   else if(monthDOB == 6){
-    if (dayDOB < 21)
+    if (dayDOB < 21) {
       astro_sign = "Gemini";
-    else if (dayDOB >= 21 && dayDOB <= 30)
+      horoscope_sprite = gemini;
+    }
+    else if (dayDOB >= 21 && dayDOB <= 30) {
       astro_sign = "Cancer";
+      horoscope_sprite = cancer;
+    }
   }
   // July     
   else if (monthDOB == 7){
-    if (dayDOB < 23)
+    if (dayDOB < 23){
       astro_sign = "Cancer";
-    else if (dayDOB >= 23 && dayDOB <= 31)
+      horoscope_sprite = cancer;
+    }
+    else if (dayDOB >= 23 && dayDOB <= 31){
       astro_sign = "Leo";
+      horoscope_sprite = leo;
+    }
   }
   // August     
   else if(monthDOB == 8){
-    if (dayDOB < 23)
+    if (dayDOB < 23) {
       astro_sign = "Leo";
-    else if (dayDOB >= 23 && dayDOB <= 31)
+      horoscope_sprite = leo;
+    }
+    else if (dayDOB >= 23 && dayDOB <= 31) {
       astro_sign = "Virgo";
+      horoscope_sprite = virgo;
+    }
   }
   // September     
   else if (monthDOB == 9){
-    if (dayDOB < 23)
+    if (dayDOB < 23) {
       astro_sign = "Virgo";
-    else if (dayDOB >= 23 && dayDOB <= 30)
+      horoscope_sprite = virgo;
+    }
+    else if (dayDOB >= 23 && dayDOB <= 30) {
       astro_sign = "Libra";
+      horoscope_sprite = libra;
+    }
   }
   // October  
   else if (monthDOB == 10){
-    if (dayDOB < 23)
+    if (dayDOB < 23) {
       astro_sign = "Libra";
-    else if (dayDOB >= 23 && dayDOB <= 31)
+      horoscope_sprite = libra;
+    }
+    else if (dayDOB >= 23 && dayDOB <= 31) {
       astro_sign = "Scorpio";
+      horoscope_sprite = scorpio;
+    }
   }
   // November     
   else if (monthDOB == 11){
-    if (dayDOB < 22)
+    if (dayDOB < 22) {
       astro_sign = "Scorpio";
-    else if (dayDOB >= 22 && dayDOB <= 30)
+      horoscope_sprite = scorpio;
+    }
+    else if (dayDOB >= 22 && dayDOB <= 30) {
       astro_sign = "Sagittarius";
+      horoscope_sprite = sagittarius;
+    }
   } else {
     display.clearScreen();
-    display.fontColor(TS_8b_White,TS_8b_Black);
+    display.fontColor(TS_16b_White,TS_16b_Black);
     display.setCursor( 48 - (display.getPrintWidth("Invalid DOB")/2), 5);
     display.print("Invalid DOB");
     delay(5000);

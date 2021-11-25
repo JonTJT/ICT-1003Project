@@ -87,9 +87,6 @@ void loop() {
       int dayDOB = concatenate(day1, day2);
       getDOB(monthDOB, dayDOB);
       if (astro_sign != " ") {
-
-
-        
         // go to next page to print astro sign and message
         display.clearScreen();
         delay(500);
