@@ -1,309 +1,316 @@
-//#include <TinyScreen.h>
-//#include <SPI.h>
-//#include <Wire.h>
-//#include "Bitmaps.h" //wizard.ino module for sprites
 #include "magic8ball.h"//for magic 8 ball answers
-//#include "BMA250.h" //Accelerometer support file for Bosch MA 250 accelerometer
 BMA250 accel;
-
-// Make Serial Monitor compatible for all TinyCircuits processors
-//#if defined(ARDUINO_ARCH_AVR)
-//#define SerialMonitorInterface Serial
-//#elif defined(ARDUINO_ARCH_SAMD)
-//#define SerialMonitorInterface SerialUSB
-//#endif
 
 //typedef enum {INITIAL, WAIT, RESPONSE} states;
 //states nextState = INITIAL;
 long int rando = 0;  //Setting up the random number holder
 
-//TinyScreen display = TinyScreen(TinyScreenDefault);
-//#include "drawSprites.h" //Put this include only after the display, will not work unless this is after
-
 #define brightness 10
 
-//void setup() {
-//  Wire.begin();
-//  display.begin();
-//  display.setBrightness(brightness); //spirites module
-//  display.setBitDepth(TSBitDepth16); //spirites module
-//  display.setColorMode(TSColorModeRGB); //spirites module
-//  randomSeed(analogRead(1)); //To make our random numbers less predictable, we use randomSeed
-//                              //and read an unused pin for a starting value (seed)
-//  SerialMonitorInterface.begin(9600);
-//  accel.begin(BMA250_range_2g, BMA250_update_time_64ms); 
-//  display.setFlip(1); //Flip display
-//}
-
 void Ask8Ball() {
-  display.clearScreen();
-  accel.begin(BMA250_range_2g, BMA250_update_time_64ms); 
-  while(1) {
-     if (display.getButtons() != TSButtonLowerRight) {
-        eightball();
-     } else {
-        display.clearScreen();
-        //Set back the fonts
-//        display.setFont(thinPixel7_10ptFontInfo);
-//        display.fontColor(TS_16b_Green,TS_16b_Black);
-        break;
-     }
-   }
-}
-
-void eightball(){
-    
+    display.clearScreen();
+    accel.begin(BMA250_range_2g, BMA250_update_time_64ms); 
     display.setCursor(5,5);
     drawBuffer(eightBall,63,30);//sprite character
     display.print("Magic 8-Ball");
     delay(2000);
     display.clearWindow(0,0,96,64);
     mainLoop();
+    display.clearScreen();
 }
 
 void mainLoop() {
 //  display.setFont(liberationSans_10ptFontInfo); //font size is 8
   //display.fontColor(WHITE,BLACK);
 
-    rando = random(1, 22); //You need a random range 1 more than the number of statements you have
+  while(1) {
+    rando = random(1, 18); //You need a random range 1 more than the number of statements you have
     rando = round(rando); //Round it to a whole number
 
     accel.read(); //Read and manipulate accelerometer data
     int z = accel.Z;
     SerialMonitorInterface.println(z); //printing out Z values for debugging purposes
-   
-    if (z < 0) {drawBuffer(eightBall,63,30);//sprite character 
-                display.clearWindow(0,0,96,64); delay(3000);}
+
+    if (z < 0) {
+      drawBuffer(eightBall,63,30);//sprite character 
+      display.clearWindow(0,0,96,64); 
+      delay(1000);
+    }
     if (z > 220) {
       switch(rando) { //A switch case for each statement
         case 1: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("It is certain"); //Here's the message that gets printed
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
           display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 2:
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("It is decidedly");
-            display.setCursor(3,20); //With longer messages, split them up; 2d line begins at y=10
-            display.print("so"); //2nd line of message
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 3:
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("Without a doubt");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 4: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("Yes, certainly");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 5: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("You may rely");
-            display.setCursor(3,20);
-            display.print("on it");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 6: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5);              
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("As I see it yes");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 7: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("Most likely");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 8: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("Outlook good");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 9: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("Yes");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 10: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("Signs point to yes");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 11: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("try again");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 12: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("Ask again later");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 13: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("Better not");
-            display.setCursor(3,20);
-            display.print("tell you now");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 14: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("Cannot predict");
-            display.setCursor(3,20);
-            display.print("now");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 15: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("Concentrate");
-            display.setCursor(3,20);
-            display.print("and ask again");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 16: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("Don't count on it");
-            //display.setCursor(0,10);
-            //display.print("on it");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
+          
         case 17: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("My reply is no");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
-        case 18: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("My sources");
-            display.setCursor(3,20);
-            display.print("say no");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
-        case 19: 
-          accel.read();
-          while (accel.Z >160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("Outlook not");
-            display.setCursor(3,20);
-            display.print("so good");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
-        case 20: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("Very doubtful");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
-        case 21: 
-          accel.read();
-          while (accel.Z > 160){
-            display.setCursor(5,5); 
-            drawBuffer(wizard,63,30);//sprite character
-            display.print("Prospect good");
-            SerialMonitorInterface.println(rando);
-            delay(2000);
-            accel.read();}
-          display.clearWindow(0,0,96,64);
-        break;
+          display.setCursor(5,5); 
+          drawBuffer(wizard,63,30);//sprite character
+          display.print(phrases[rando]); //Here's the message that gets printed
+          SerialMonitorInterface.println(rando);
+          while (accel.Z > 160) {
+            for (int i = 0; i < 100; i++) {
+              if (display.getButtons() == TSButtonLowerRight) {
+                return;
+              }
+            }
+            accel.read();
+          }
+          display.clearWindow(0,0,96,64); //It's important to clear the window after each graphic
+          break;
       }
     display.clearWindow(0,0,96,64); //Clear window after everything
     }
   }
+}
