@@ -19,14 +19,16 @@ const uint8_t backButton   = TSButtonUpperLeft;
 const uint8_t selectButton = TSButtonLowerLeft;
 const uint8_t menuButton   = TSButtonLowerLeft;
 
-//DEBUG
-#define menu_debug_print true // Debug messages in Serial Monitor for ease of debugging
-
 #if defined(ARDUINO_ARCH_AVR)
   #define SerialMonitorInterface Serial
 #elif defined(ARDUINO_ARCH_SAMD)
   #define SerialMonitorInterface SerialUSB
 #endif
+
+//DEBUG
+#define menu_debug_print true // Debug messages in Serial Monitor for ease of debugging
+
+
 
 
 // KEEFE FUNCTIONS ------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -98,16 +100,12 @@ void idle(){
     bound = wizard_x - (rand_walk * 5);
     if (bound >= wizard_x) {
 //      delay(1000);
-      for (int i = 0; i < 100; i++) {
-        checkButtons();
-      }
+      checkButtons(1000);
       
       display.setCursor(20,10);
       display.print("*zzzzzzzz*");
 //      delay(2000);
-      for (int i = 0; i < 200; i++) {
-        checkButtons();
-      }
+      checkButtons(2000);
       display.clearWindow(0,0,96,30);
       return;
     }
@@ -115,7 +113,7 @@ void idle(){
     for (wizard_x; wizard_x > bound; wizard_x -= 1) {
       drawBuffer(wizard, wizard_x, wizard_y);
       
-      checkButtons();
+      checkButtons(1);
       
       gravity_check();
       delay(walking_delay);
@@ -126,23 +124,19 @@ void idle(){
     bound = wizard_x + rand_walk * 5;
     if (bound <= wizard_x) {
 //      delay(1000);
-      for (int i = 0; i < 100; i++) {
-        checkButtons();
-      }
+      checkButtons(1000);
 
       display.setCursor(15,10);
       display.print("*lalalalala*");
 //      delay(2000);
-      for (int i = 0; i < 200; i++) {
-        checkButtons();
-      }
+      checkButtons(2000);
       display.clearWindow(0,0,96,30);
       return;
     }
     for (wizard_x; wizard_x < bound; wizard_x += 1) {
       drawBuffer(wizard_flipped, wizard_x, wizard_y);
 
-      checkButtons();
+      checkButtons(1);
       
       gravity_check();
       delay(walking_delay);
@@ -163,113 +157,83 @@ void talk() {
       display.setCursor(0,10);
       display.print("I predict that...");
 //      delay(1000);
-      for (int i = 0; i < 100; i++){
-        checkButtons();
-      }
+      checkButtons(1000);
       display.setCursor(0,20);
       display.print("you gained weight");
 //      delay(3000);
-      for (int i = 0; i < 300; i++){
-        checkButtons();
-      }
+      checkButtons(3000);
       display.clearWindow(0,0,96,30);
       break;
     case 1:
       display.setCursor(0,10);
       display.print("I'm not happy...");
 //      delay(1000);
-      for (int i = 0; i < 100; i++){
-        checkButtons();
-      }
+      checkButtons(1000);
       display.setCursor(0,20);
       display.print("but I wanna be");
 //      delay(3000);
-      for (int i = 0; i < 300; i++){
-        checkButtons();
-      }
+      checkButtons(3000);
       display.clearWindow(0,0,96,30);
       break;
     case 2:
       display.setCursor(0,10);
       display.print("The stars tell me...");
 //      delay(1000);
-      for (int i = 0; i < 100; i++){
-        checkButtons();
-      }
+      checkButtons(1000);
       display.setCursor(0,20);
       display.print("its a good day");
 //      delay(3000);
-      for (int i = 0; i < 300; i++){
-        checkButtons();
-      }
+      checkButtons(3000);
       display.clearWindow(0,0,96,30);
       break;
     case 3:
       display.setCursor(0,10);
       display.print("My magic ball says..");
 //      delay(1000);
-      for (int i = 0; i < 100; i++){
-        checkButtons();
-      }
+      checkButtons(1000);
       display.setCursor(0,20);
       display.print("low battery? Wut");
 //      delay(3000);
-      for (int i = 0; i < 300; i++){
-        checkButtons();
-      }
+      checkButtons(3000);
       display.clearWindow(0,0,96,30);
       break;
     case 4:
       display.setCursor(0,10);
       display.print("Your ICT1003...");
 //      delay(1000);
-      for (int i = 0; i < 100; i++){
-        checkButtons();
-      }
+      checkButtons(1000);
       display.setCursor(0,20);
       display.print("GETS A+ BABY!!!");
 //      delay(3000);
-      for (int i = 0; i < 300; i++){
-        checkButtons();
-      }
+      checkButtons(3000);
       display.clearWindow(0,0,96,30);
       break;
     case 5:
       display.setCursor(0,10);
       display.print("Have a 'STUN SEED'");
 //      delay(1000);
-      for (int i = 0; i < 100; i++){
-        checkButtons();
-      }
+      checkButtons(1000);
       display.setCursor(0,20);
       display.print("backwards");
       display.setCursor(0,30);
 //      delay(3000);
-      for (int i = 0; i < 300; i++){
-        checkButtons();
-      }
+      checkButtons(3000);
       display.print("gottem");
 //      delay(2000);
-      for (int i = 0; i < 200; i++){
-        checkButtons();
-      }
+      checkButtons(2000);
       display.clearWindow(0,0,96,40);
       break;
     case 6:
       display.setCursor(0,10);
       display.print("U from tennessee?");
 //      delay(1000);
-      for (int i = 0; i < 100; i++){
-        checkButtons();
-      }
+      checkButtons(1000);
       display.setCursor(0,20);
       display.print("Cos u the only 10");
       display.setCursor(0,30);
       display.print("i see");
 //      delay(5000);
-      for (int i = 0; i < 500; i++){
-        checkButtons();
-      }
+      checkButtons(5000); 
       display.clearWindow(0,0,96,40);
       break;
     default:
@@ -343,10 +307,12 @@ void downArrow(int x, int y) {
 }
 
 // Wesley FUNCTIONS -------------------------------------------------------------------------------------------------------------------------------------------------------------
-void checkButtons() {
-  byte buttons = display.getButtons();
-  if (buttons == TSButtonUpperRight || buttons == TSButtonLowerRight || buttons == TSButtonUpperLeft || buttons == TSButtonLowerLeft) {
-    drawMenu();
+void checkButtons(int timeMS) {
+  for(int i=0; i<timeMS; i++) {
+    byte buttons = display.getButtons();
+    if (buttons == TSButtonUpperRight || buttons == TSButtonLowerRight || buttons == TSButtonUpperLeft || buttons == TSButtonLowerLeft) {
+      drawMenu();
+    }
   }
 }
 
@@ -483,8 +449,8 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  checkButtons();
+  checkButtons(500);
   gravity_check();
   idle();   //INPUT MY MENU CODE IN THE MIDDLE OF IDLE USING MENU CHECKER FUNCTION
-  checkButtons();
+  checkButtons(500);
 }
