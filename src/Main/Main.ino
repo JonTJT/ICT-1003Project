@@ -369,18 +369,17 @@ void drawMenu() {
     }
   
     writeArrows();
-    
+
+    delay(200);
     if (display.getButtons(downButton) && currentSelection < 3) {
       currentSelection++;
       buttonsPressed = 1;
       display.clearScreen();
-      delay(300);
     }
     else if (display.getButtons(upButton) && currentSelection > 0) {
       currentSelection--;
       buttonsPressed = 1;
       display.clearScreen();
-      delay(300);
     }
     else if (display.getButtons(selectButton)) {
       switch(currentSelection){
