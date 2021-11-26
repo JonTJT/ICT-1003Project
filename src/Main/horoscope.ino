@@ -43,7 +43,8 @@ void horoscope() {
   display.clearScreen();
   dobPage();
   while(1) {
-     if (display.getButtons() != TSButtonLowerRight) {
+     if (display.getButtons() != TSButtonUpperLeft) {
+        leftArrow(0, 15 + 2);
         horoscopeLoop();
      } else {
         display.clearScreen();
@@ -237,14 +238,17 @@ void dobPage() {
     display.setCursor(0, 55);
     display.print("<Submit");
   } else {
-    display.setCursor(0, 55);
+//    display.setCursor(0, 55);
+    display.setCursor(0, 47);
     display.print("<Next");
   }
 
-  display.setCursor(88, 0);
-  display.print("+");
-  display.setCursor(88, 55);
-  display.print("-");
+  upArrow(90, 15 + 2);
+  downArrow(90, 45 + 4);
+//  display.setCursor(88, 0);
+//  display.print("+");
+//  display.setCursor(88, 55);
+//  display.print("-");
   display.fontColor(TS_16b_Red,TS_16b_Black);  
   if (positionOfDOB == 1) {
     display.setCursor(30, 30);
