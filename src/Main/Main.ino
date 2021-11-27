@@ -153,7 +153,7 @@ void talk() {
     punished = 0;
   }
   else {
-    rand_word = random(13 * 2); //The *2 is to make it 50% chance that he won't say anything
+    rand_word = random(13 * 2); //There are 13 options, the *2 is to make it 50% chance that he won't say anything
   }
   //There are currently 13 lines possible
   switch(rand_word) {
@@ -255,7 +255,7 @@ void talk() {
       display.print("Cos u the only 10");
       display.setCursor(0,30);
       display.print("i see");
-      checkButtons(5000); 
+      checkButtons(3000); 
       display.clearWindow(0,0,96,40);
       break;
     case 9:
