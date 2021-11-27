@@ -15,6 +15,6 @@ https://learn.tinycircuits.com/Processors/TinyZero_Setup_Tutorial/
 ## Timeline
 ~~4-Nov to 8-Nov - Explore functionalities based on allocated task and identify any challenges/additional modules required~~ DONE <br>
 ~~8-Nov to 13-Nov - Start coding functionality (Meeting on 13 Nov to update progress)~~ DONE<br>
-~~14-Nov to 21-Nov - Finish coding functionality & begin integration ~~ DONE<br>
-~~~21-Nov to 28-Nov - Finish integration & demonstration video~~ DONE<br>
+~~14-Nov to 21-Nov - Finish coding functionality & begin integration~~ DONE<br>
+~~21-Nov to 28-Nov - Finish integration & demonstration video~~ DONE<br>
 ~~28-Nov - DEADLINE~~ DONE
