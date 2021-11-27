@@ -1,11 +1,11 @@
 # AH HUAT FORTUNE TELLER
 ### This is our ICT1003-Computer Organisation and Architecture project done by:
-Chloe - https://github.com/ChloeChua
-Keefe - https://github.com/keefelee
-Janice - https://github.com/sotongjan
-Wesley - https://github.com/wesleychiau
-Xynorimas - https://github.com/Xynorimas
-Jon - https://github.com/JonTJT
+Chloe - https://github.com/ChloeChua <br>
+Keefe - https://github.com/keefelee <br>
+Janice - https://github.com/sotongjan <br>
+Wesley - https://github.com/wesleychiau <br>
+Xynorimas - https://github.com/Xynorimas <br>
+Jon - https://github.com/JonTJT <br>
 
 ## Setup Guide:
 1. Please refer to the tinyCircuits website on how to setup your tiny circuit:
