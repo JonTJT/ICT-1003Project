@@ -12,6 +12,7 @@ int wizard_y = 38; //Global y coordinate for wizard
 int gravity = 1; // Determines if screen if flipped or not, 1 is flipped 0 is not flipped
 int x_accel = 0; //Accelerometer value for x axis
 int walking_delay = 150; //Delay between walking frames. Lesser is smoother animation, but he moves very fast
+int punished = 0; //If 1 he is punished, and will say something nice next.
 
 const uint8_t upButton     = TSButtonUpperRight;
 const uint8_t downButton   = TSButtonLowerRight;
@@ -51,18 +52,15 @@ void gravity_check() {
     return;
   }
 
-  falling();    
+  falling();  
+  punished = 1; //He will say something nice next  
   display.setFlip(gravity);    
   display.clearScreen();
-
-  //Mirror x value across centre for flip
-  //dist_from_centre_xaxis = 48 - wizard_x;
-  //wizard_x = wizard_x - (2 * dist_from_centre_xaxis);
   
   drawBuffer(wizard, wizard_x, wizard_y);
   delay(1000);
   display.setCursor(0,10);
-  display.print("Uh...RUDE!?");
+  display.print("Ow! Hey!?");
   delay(3000);
   display.setCursor(0,20);
   display.print("That hurt T-T");
@@ -95,18 +93,21 @@ void idle(){
   //Get wizards coordinates, decide how far can he walk in either direction
   int walk_direction = random(2); //0 = left, 1 = right
   if (walk_direction == 0){                                    //Walk left
-    max_walk = (wizard_x - 5) / 5;
+//    max_walk = (wizard_x - 5) / 5;
+//    rand_walk = random(max_walk);
+//    bound = wizard_x - (rand_walk * 5);
+    max_walk = wizard_x - 5;
     rand_walk = random(max_walk);
-    bound = wizard_x - (rand_walk * 5);
+    bound = wizard_x - rand_walk;
     if (bound >= wizard_x) {
 //      delay(1000);
       checkButtons(1000);
       
-      display.setCursor(20,10);
-      display.print("*zzzzzzzz*");
-//      delay(2000);
-      checkButtons(2000);
-      display.clearWindow(0,0,96,30);
+//      display.setCursor(20,10);
+//      display.print("*zzzzzzzz*");
+////      delay(2000);
+//      checkButtons(2000);
+//      display.clearWindow(0,0,96,30);
       return;
     }
  
@@ -119,23 +120,18 @@ void idle(){
       delay(walking_delay);
     }
   } else {                                                     //Walk Right
-    max_walk = (75 - wizard_x) / 5;
+//    max_walk = (75 - wizard_x) / 5;
+//    rand_walk = random(max_walk);
+//    bound = wizard_x + rand_walk * 5;
+    max_walk = 75 - wizard_x;
     rand_walk = random(max_walk);
-    bound = wizard_x + rand_walk * 5;
+    bound = wizard_x + rand_walk;
     if (bound <= wizard_x) {
-//      delay(1000);
       checkButtons(1000);
-
-      display.setCursor(15,10);
-      display.print("*lalalalala*");
-//      delay(2000);
-      checkButtons(2000);
-      display.clearWindow(0,0,96,30);
       return;
     }
     for (wizard_x; wizard_x < bound; wizard_x += 1) {
       drawBuffer(wizard_flipped, wizard_x, wizard_y);
-
       checkButtons(1);
       
       gravity_check();
@@ -150,8 +146,16 @@ void idle(){
 
 // Fn to make him say random things
 void talk() {
-  int rand_word = random(7+2); //The +2 is to add chance that he won't say anything
-  // To test specific cases if need be -> rand_word = 6;
+  int rand_word = 0;
+  // Checks if he was recently flipped(aka punished) and chooses rng based on that
+  if (punished) {
+    rand_word = random(8, 13);
+    punished = 0;
+  }
+  else {
+    rand_word = random(13 * 2); //The *2 is to make it 50% chance that he won't say anything
+  }
+  //There are currently 13 lines possible
   switch(rand_word) {
     case 0:
       display.setCursor(0,10);
@@ -225,18 +229,72 @@ void talk() {
       break;
     case 6:
       display.setCursor(0,10);
+      display.print("Your face says...");
+      checkButtons(1000);
+      display.setCursor(0,20);
+      display.print("bad fertility!");
+      checkButtons(3000);
+      display.clearWindow(0,0,96,30);
+      break;
+    case 7:
+      display.setCursor(0,10);
+      display.print("Luck is...");
+      checkButtons(1000);
+      display.setCursor(0,20);
+      display.print("believing you are");
+      display.setCursor(0,30);
+      display.print("lucky!");
+      checkButtons(2000);
+      display.clearWindow(0,0,96,40);
+      break;
+    case 8:
+      display.setCursor(0,10);
       display.print("U from tennessee?");
-//      delay(1000);
       checkButtons(1000);
       display.setCursor(0,20);
       display.print("Cos u the only 10");
       display.setCursor(0,30);
       display.print("i see");
-//      delay(5000);
       checkButtons(5000); 
       display.clearWindow(0,0,96,40);
       break;
-    default:
+    case 9:
+      display.setCursor(0,10);
+      display.print("Your palm says...");
+      checkButtons(1000);
+      display.setCursor(0,20);
+      display.print("1 week good luck!");
+      checkButtons(3000);
+      display.clearWindow(0,0,96,30);
+      break;
+    case 10:
+      display.setCursor(0,10);
+      display.print("Your palm says...");
+      checkButtons(1000);
+      display.setCursor(0,20);
+      display.print("3 weeks good luck!");
+      checkButtons(3000);
+      display.clearWindow(0,0,96,30);
+      break;
+    case 11:
+      display.setCursor(0,10);
+      display.print("Your palm says...");
+      checkButtons(1000);
+      display.setCursor(0,20);
+      display.print("long life ahead!");
+      checkButtons(3000);
+      display.clearWindow(0,0,96,30);
+      break;
+    case 12:
+      display.setCursor(0,10);
+      display.print("Your face says...");
+      checkButtons(1000);
+      display.setCursor(0,20);
+      display.print("good fertility!");
+      checkButtons(3000);
+      display.clearWindow(0,0,96,30);
+      break;
+    default: //He will go on to the next loop without saying anything
       break;
   }
 }
@@ -313,6 +371,7 @@ void checkButtons(int timeMS) {
     if (buttons == TSButtonUpperRight || buttons == TSButtonLowerRight || buttons == TSButtonUpperLeft || buttons == TSButtonLowerLeft) {
       drawMenu();
     }
+    delay(1);
   }
 }
 
@@ -437,7 +496,7 @@ void setup() {
   display.setCursor(0,10);
   display.print("Why hello there...");
   display.setCursor(0,20);
-  display.print("I'm Saicik!");
+  display.print("I'm Ah Huat!");
   delay(5000);
   
 //  attachInterrupt(TSP_PIN_BT1, drawMenu, FALLING);
