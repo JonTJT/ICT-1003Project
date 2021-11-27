@@ -13,6 +13,10 @@ void Ask8Ball() {
     display.setCursor(5,5);
     drawBuffer(eightBall,63,30);//sprite character
     display.print("Magic 8-Ball");
+    display.setCursor(5,25);
+    display.print("Press any");
+    display.setCursor(5,35);
+    display.print("Button"); 
     delay(500);
     while (1) {
       if (display.getButtons() == TSButtonUpperLeft || display.getButtons() == TSButtonUpperRight || display.getButtons() == TSButtonLowerLeft) {

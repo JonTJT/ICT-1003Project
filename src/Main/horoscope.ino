@@ -44,7 +44,7 @@ void horoscope() {
   dobPage();
   while(1) {
      if (display.getButtons() != TSButtonUpperLeft) {
-        leftArrow(0, 15 + 2);
+        delay(200);
         horoscopeLoop();
      } else {
         display.clearScreen();
@@ -243,6 +243,7 @@ void dobPage() {
     display.print("<Next");
   }
 
+  leftArrow(0, 15 + 2);
   upArrow(90, 15 + 2);
   downArrow(90, 45 + 4);
 //  display.setCursor(88, 0);
